@@ -9,7 +9,6 @@ function MainController (scope) {
 		{ name: 'New Service', sref: 'main.new-service' },
 		{ name: 'New Shared Module', sref: 'main.new-shared' }
 	];
-	vm.currentOption = vm.navOptions[0];
 	vm.openMenu = openMenu;
 
 	function openMenu (mdOpenMenu, event) {
