@@ -12,7 +12,7 @@ function config (stateProvider) {
 
 let onStateEnter = [ '$rootScope', 
 	function (rootScope) { 
-		rootScope.viewTitle  = "ngGenerator";
+		rootScope.viewTitle  = "";
     	rootScope.viewStyles = "main";
     }
 ];
