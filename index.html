@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+<html ng-app="ngGenerator">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title ng-bind="viewTitle">ngGenerator</title>
+		<link rel="stylesheet" href="dist/lib/vendor.css">
+		<link rel="stylesheet" href="dist/css/style.css">
+	</head>
+	<body class="{{viewStyles}}">
+		 <ui-view></ui-view>
+		<script src="dist/js/bundle.js"></script>
+	</body>
+</html>
