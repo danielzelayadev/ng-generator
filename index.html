@@ -4,12 +4,16 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title ng-bind="viewTitle">ngGenerator</title>
+		<title>ngGenerator</title>
 		<link rel="stylesheet" href="dist/lib/vendor.css">
 		<link rel="stylesheet" href="dist/css/style.css">
 	</head>
 	<body class="{{viewStyles}}">
 		 <ui-view></ui-view>
+	    <script>
+	    	const exec = require('child_process').exec;
+	    	global.exec = exec;
+	    </script>
 		<script src="dist/js/bundle.js"></script>
 	</body>
 </html>
