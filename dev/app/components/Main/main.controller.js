@@ -1,6 +1,6 @@
-MainController.$inject = [ '$scope' ];
+MainController.$inject = [ '$scope', '$state' ];
 
-function MainController (scope) {
+function MainController (scope, state) {
 	const vm = this;
 
 	vm.navOptions = [
@@ -14,6 +14,8 @@ function MainController (scope) {
 	function openMenu (mdOpenMenu, event) {
 		mdOpenMenu(event);
 	}
+
+	state.go('main.new-app');
 }
 
 module.exports = { name: 'MainController', ctrl: MainController };
