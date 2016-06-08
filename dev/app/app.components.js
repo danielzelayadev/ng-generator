@@ -1,6 +1,6 @@
 const moduleName = 'app.components';
 
-const Main = require('./components/Main/main.component-bundle');
+const Main = require('./components/Main/main-bundle.module');
 
 angular.module(moduleName, [ Main ]);
 
