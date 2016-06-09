@@ -1,5 +1,8 @@
-const moduleName = 'app.services';
+const genUtils = require('./services/GenUtils/gen-utils.module');
 
-angular.module(moduleName, []);
+const moduleName   = 'app.services',
+      dependencies = [ genUtils ];
+
+angular.module(moduleName, dependencies);
 
 module.exports = moduleName;
