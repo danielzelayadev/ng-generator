@@ -1,19 +1,19 @@
-ModuleToListController.$inject = [ '$scope', 'genUtils', 'module' ];
+ModuleToListController.$inject = [ '$scope', 'genUtils' ];
 
-function ModuleToListController (scope, genUtils, module) {
+function ModuleToListController (scope, genUtils) {
 	const vm = this;
 
 	vm.addModule = addModule;
 	vm.removeFromList = genUtils.removeListItem;
 
 	function addModule () {
-		const path = genUtils.openFileBrowser();
+		const path = genUtils.selectFile();
 
-		const moduleMeta = module.getModuleMeta(path);
+		const moduleName = genUtils.toStandardObjectName(path, 'module', '-');
 
-		if (moduleMeta)
-			scope.modules.push(moduleMeta);
+		scope.modules.push({name: moduleName, path: path });
 	}
+	
 }
 
 module.exports = { name: 'ModuleToListController', ctrl: ModuleToListController };
