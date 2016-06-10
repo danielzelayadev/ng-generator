@@ -1,6 +1,6 @@
-NewAppController.$inject = [ '$scope', 'genUtils' ];
+NewAppController.$inject = [ '$scope', 'genUtils', 'generator' ];
 
-function NewAppController (scope, genUtils) {
+function NewAppController (scope, genUtils, generator) {
 	const vm = this;
 	const cleanModel = require('./app-data.model');
 
@@ -13,7 +13,7 @@ function NewAppController (scope, genUtils) {
 	vm.openFileBrowser  = openFileBrowser;
 
 	function submit () {
-		console.log(vm.appData);
+		generator.createApp(vm.appData);
 	}
 
 	function reset () {
@@ -21,7 +21,7 @@ function NewAppController (scope, genUtils) {
 	}
 
 	function openFileBrowser () {
-		const path = genUtils.openFileBrowser();
+		const path = genUtils.selectFolder();
 
 		vm.appData.destinyFolder = path;
 	}

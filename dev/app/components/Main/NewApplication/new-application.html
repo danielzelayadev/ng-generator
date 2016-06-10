@@ -8,9 +8,12 @@
     </md-input-container>
     <text-to-list title="Add Dependency" list-title="App Dependencies" list="vm.appData.dependencies"></text-to-list>
     <div>
-    	<md-subheader>App Destination *</md-subheader>
-	    <md-button class="md-mini" style="font-size: 1.4em;" ng-click="vm.openFileBrowser(vm.appData.destinyFolder)">Choose Folder...</md-button>
+        <md-subheader>App Destination *</md-subheader>
+        <md-button class="md-mini" style="font-size: 1.4em;" ng-click="vm.openFileBrowser(vm.appData.destinyFolder)">Choose Folder...</md-button>
     </div>
+    <module-to-list module-type="Component" modules="vm.appData.components"></module-to-list>
+    <module-to-list module-type="Service" modules="vm.appData.services"></module-to-list>
+    <module-to-list module-type="Shared Module" modules="vm.appData.shared"></module-to-list>
     <div class="md-checkbox-container">
         <md-checkbox ng-model="vm.appData.createConfig">Create Config</md-checkbox>
     </div>
