@@ -1,5 +1,8 @@
-const moduleName = 'app.shared';
+const textToList = require('./shared/TextToList/text-to-list.module');
 
-angular.module(moduleName, []);
+const moduleName   = 'app.shared',
+      dependencies = [ textToList ];
+
+angular.module(moduleName, dependencies);
 
 module.exports = moduleName;
