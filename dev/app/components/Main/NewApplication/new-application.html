@@ -6,53 +6,21 @@
 	      <div ng-message="required">This is required!</div>
 	    </div>
     </md-input-container>
-    <md-input-container class="md-block">
-	    <label>Add Dependency</label>
-	    <input ng-model="dep">
-	    <md-button class="md-mini" style="float: right; font-size: 1.4em;" ng-click="vm.addDependency(dep, vm.appData.dependencies, vm.scope, 'dep')">+</md-button>
-    </md-input-container>
-    <md-list ng-show="vm.appData.dependencies.length > 0">
-    	<md-subheader class="md-no-sticky">Dependencies</md-subheader>
-    	<md-list-item ng-repeat="dep in vm.appData.dependencies track by $index">
-    		{{dep}}
-    		<md-button class="md-mini md-secondary" style="font-size: 1.4em;" ng-click="vm.removeDependency($index, vm.appData.dependencies)">X</md-button>
-    	</md-list-item>
-    </md-list>
-    <md-input-container class="md-block">
-	    <label>App Destination</label>
-	    <input name="appDestiny" type="file" ng-model="vm.appData.destinyFolder" required
-	    webkitdirectory>
-	    <!-- <div ng-messages="newApp.moduleName.$error">
-	      <div ng-message="required">This is required!</div>
-	    </div> -->
-    </md-input-container>
-    <div style="padding-left: 1px;margin-bottom: 10px;">
+    <text-to-list title="Add Dependency" list-title="App Dependencies" list="vm.appData.dependencies"></text-to-list>
+    <div>
+    	<md-subheader>App Destination *</md-subheader>
+	    <md-button class="md-mini" style="font-size: 1.4em;" ng-click="vm.openFileBrowser(vm.appData.destinyFolder)">Choose Folder...</md-button>
+    </div>
+    <div class="md-checkbox-container">
         <md-checkbox ng-model="vm.appData.createConfig">Create Config</md-checkbox>
     </div>
-    <div ng-show="vm.appData.createConfig">
-    	<md-input-container class="md-block">
-		    <label>Add Config Dependency</label>
-		    <input ng-model="configDep">
-		    <md-button class="md-mini" style="float: right; font-size: 1.4em;">+</md-button>
-	    </md-input-container>
-	    <md-list ng-show="vm.appData.configDependencies.length > 0">
-	    	<md-subheader class="md-no-sticky">Dependencies</md-subheader>
-	    	<md-list-item ng-repeat="dep in vm.appData.configDependencies track by $index">{{dep}}</md-list-item>
-	    </md-list>
-    </div>
-    <div style="padding-left: 1px;margin-bottom: 10px;">
+    <text-to-list ng-show="vm.appData.createConfig" title="Add Config Dependency" list-title="Config Dependencies" list="vm.appData.configDependencies"></text-to-list>
+    <div class="md-checkbox-container"">
         <md-checkbox ng-model="vm.appData.createRun">Create Run</md-checkbox>
     </div>
-    <div ng-show="vm.appData.createRun">
-    	<md-input-container class="md-block">
-		    <label>Add Run Dependency</label>
-		    <input ng-model="runDep">
-		    <md-button class="md-mini" style="float: right; font-size: 1.4em;">+</md-button>
-	    </md-input-container>
-	    <md-list ng-show="vm.appData.runDependencies.length > 0">
-	    	<md-subheader class="md-no-sticky">Dependencies</md-subheader>
-	    	<md-list-item ng-repeat="dep in vm.appData.runDependencies track by $index">{{dep}}</md-list-item>
-	    </md-list>
+    <text-to-list ng-show="vm.appData.createRun" title="Add Run Dependency" list-title="Run Dependencies" list="vm.appData.runDependencies"></text-to-list>
+    <div class="md-checkbox-container">
+        <md-checkbox ng-model="vm.appData.createGlobalStylesheet">Create Global Stylesheet</md-checkbox>
     </div>
     <md-button class="md-raised md-primary" aria-label="Submit" type="submit">Create</md-button>
     <md-button class="md-raised md-warn" aria-label="Submit" type="reset" ng-click="vm.reset()">Reset</md-button>
