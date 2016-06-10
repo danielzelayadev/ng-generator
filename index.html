@@ -13,6 +13,8 @@
 	    <script>
 	    	const exec = require('child_process').exec;
 	    	global.exec = exec;
+	    	const { dialog } = require('electron').remote;
+	    	global.dialog = dialog;
 	    </script>
 		<script src="dist/js/bundle.js"></script>
 	</body>
