@@ -1,0 +1,11 @@
+<div>
+    <md-button class="md-mini" style="font-size: 1.4em;" ng-click="vm.addModule()">Add {{moduleType}}...</md-button>
+</div>
+<md-list ng-show="modules.length > 0">
+	<md-subheader class="md-no-sticky">Modules</md-subheader>
+	<md-list-item ng-repeat="module in modules track by $index">
+        {{module.name}}
+		<md-button class="md-mini md-secondary" style="font-size: 1.4em;"
+        ng-click="vm.removeFromList($index, modules)">X</md-button>
+	</md-list-item>
+</md-list>
