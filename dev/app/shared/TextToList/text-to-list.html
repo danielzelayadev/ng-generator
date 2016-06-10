@@ -1,0 +1,14 @@
+<md-input-container class="md-block">
+    <label>{{title}}</label>
+    <input ng-model="text">
+    <md-button class="md-mini" style="float: right; font-size: 1.4em;"
+    ng-click="vm.addToList(text, list, vm.scope, 'text')">+</md-button>
+</md-input-container>
+<md-list ng-show="list.length > 0">
+	<md-subheader class="md-no-sticky">{{listTitle}}</md-subheader>
+	<md-list-item ng-repeat="item in list track by $index">
+        {{item}}
+		<md-button class="md-mini md-secondary" style="font-size: 1.4em;"
+        ng-click="vm.removeFromList($index, list)">X</md-button>
+	</md-list-item>
+</md-list>
