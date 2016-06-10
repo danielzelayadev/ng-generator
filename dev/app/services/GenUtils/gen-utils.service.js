@@ -4,8 +4,10 @@ function genUtils () {
 	const service = {
 		addInputTextToList: addInputTextToList,
 		removeListItem: removeListItem,
-		openFileBrowser: openFileBrowser,
-		toStandardFileName: toStandardFileName
+		selectFolder: selectFolder,
+		selectFile: selectFile,
+		toStandardFileName: toStandardFileName,
+		toStandardObjectName: toStandardObjectName
 	};
 
 	return service;
@@ -22,9 +24,14 @@ function genUtils () {
 		list.splice(index, 1);
 	}
 
-	function openFileBrowser () {
+	function selectFolder () {
 		return dialog
-			.showOpenDialog({properties: ['openFile', 'openDirectory']});
+			.showOpenDialog({properties: ['openDirectory']})[0];
+	}
+
+	function selectFile () {
+		return dialog
+			.showOpenDialog({properties: ['openFile']})[0];
 	}
 
 	function toStandardFileName (str) {
@@ -43,6 +50,32 @@ function genUtils () {
 		}
 
 		return str.toLowerCase();
+	}
+
+	function toStandardObjectName (path, type, separator) {
+		let name = path.slice(path.lastIndexOf('/')+1, 
+			                path.lastIndexOf('.')-type.length-1);
+		
+		let currLength = name.length;
+
+		for (let i = 0; i < currLength; i++) {
+			const c = name[i];
+
+			if (c === separator) {
+				if (i === currLength-1)
+					name.splice(i, 1);
+				else {
+					name = name.slice(0, i) + 
+					       name[i+1].toUpperCase() + 
+					       name.slice(i+2, currLength);
+					currLength--; 
+				}
+			}
+		}
+
+		name = name[0].toUpperCase() + name.slice(1, name.length);
+
+		return name;
 	}
 
 }
