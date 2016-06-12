@@ -13,7 +13,14 @@ function NewAppController (scope, genUtils, generator) {
 	vm.openFileBrowser  = openFileBrowser;
 
 	function submit () {
-		generator.createApp(vm.appData);
+		try {
+			generator.createApp(vm.appData);
+			genUtils.toast('Success!', 3000);
+			genUtils.reload();
+		}
+		catch (err) {
+			genUtils.toast(err, 3000);
+		}
 	}
 
 	function reset () {
