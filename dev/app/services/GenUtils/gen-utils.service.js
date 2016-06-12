@@ -1,13 +1,15 @@
-genUtils.$injects = [];
+genUtils.$injects = [ '$mdToast', '$state' ];
 
-function genUtils () {
+function genUtils ($mdToast, $state) {
 	const service = {
 		addInputTextToList: addInputTextToList,
 		removeListItem: removeListItem,
 		selectFolder: selectFolder,
 		selectFile: selectFile,
 		toStandardFileName: toStandardFileName,
-		toStandardObjectName: toStandardObjectName
+		toStandardObjectName: toStandardObjectName,
+		toast: toast,
+		reload: reload
 	};
 
 	return service;
@@ -76,6 +78,21 @@ function genUtils () {
 		name = name[0].toUpperCase() + name.slice(1, name.length);
 
 		return name;
+	}
+
+	function toast (message, delay) {
+		if (!message) message = '';
+		if (!delay) delay = 3000;
+
+		$mdToast.show(
+      		$mdToast.simple()
+        	.textContent(message)
+        	.hideDelay(delay)
+   		 );
+	}
+
+	function reload () {
+		$state.go($state.current, {}, {reload: true});
 	}
 
 }
