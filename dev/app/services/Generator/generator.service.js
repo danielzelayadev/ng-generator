@@ -1,6 +1,6 @@
-generator.$inject = [];
+generator.$inject = [ 'utils' ];
 
-function generator () {
+function generator (utils) {
 	const service = {
 		createApp: createApp
 	};
@@ -8,14 +8,24 @@ function generator () {
 	return service;
 
 	function createApp (appData) {
-		
+		createAppBootstrapper(appData.destinyFolder, appData.requires);
+		createModule(appData.destinyFolder, utils.getAppModuleData(appData));
+		createModule(appData.destinyFolder, utils.getComponentsModuleData(appData.components));
+		createModule(appData.destinyFolder, utils.getServicesModuleData(appData.services));
+		createModule(appData.destinyFolder, utils.getSharedModuleData(appData.shared));
+		if (appData.createConfig)
+			createConfig(appData.destinyFolder, appData.configDependencies);
+		if (appData.createRun)
+			createRun(appData.destinyFolder, appData.runDependencies);
+		if (appData.createGlobalStylesheet)
+			createStylsheet(appData.destinyFolder, 'style.scss');
 	}
 
 	function createAppBootstrapper (dir, requires) {
 
 	}
 
-	function createModule (dir, moduleData, type) { 
+	function createModule (dir, moduleData) { 
 	//moduleName, dependencies, moduleVars, moduleRegistries
 
 	}
