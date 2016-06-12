@@ -65,7 +65,13 @@ function generator (utils) {
 	}
 
 	function createStylsheet (dir, name) {
+		let template = name !== 'style.scss' ? `.${name} {\n\n}` : '';
 
+		try {
+			fs.writeFile(`${dir}/${name}`, template);
+		} catch (err) {
+			throw `Failed to create '${name}' stylesheet.`;
+		}
 	}
 
 	function createController (dir, name, dependencies) {
