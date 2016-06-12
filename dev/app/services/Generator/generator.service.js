@@ -22,12 +22,34 @@ function generator (utils) {
 	}
 
 	function createAppBootstrapper (dir, requires) {
+		let template = '';
 
+		for (let i = 0; i < requires.length; i++)
+			template += `require('${requires[i]}');\n`;
+
+		template += "\nconst app = require('./app.module');\n\nangular.bootstrap(document, [ app ]);";
+
+		try {
+			fs.writeFile(`${dir}/app.bootstrap.js`, template);
+		} catch (err) {
+			throw "Failed to create app bootstrapper.";
+		}
 	}
 
 	function createModule (dir, moduleData) {
 		if (moduleData.moduleVars.length > 0)
 			moduleData.moduleVars += '\n';
+
+		const template = `${moduleData.moduleVars}const moduleName   = '${mdouleData.moduleName}',` +
+		`\n\tdependencies = [${moduleData.dependencies}];` +
+		`\n\nangular.module(moduleName, dependencies)${moduleData.moduleRegistries};`;
+
+		try {
+			fs.writeFileSync(`${dir}/${moduleData.fileName}`, template);
+		}
+		catch (err) {
+			throw `Failed to create ${moduleData.moduleName}.`;
+		}
 	}
 
 	function createConfig (dir, dependencies, type) {

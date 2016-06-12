@@ -30,6 +30,8 @@ function utils () {
 	}
 
 	function getAppModuleData (appData, moduleData) {
+		moduleData.moduleName = appData.moduleName;
+		moduleData.fileName = 'app.module.js';
 
 		if (appData.createConfig) {
 			moduleData.moduleVars += "const config = require('./app.config');\n";
@@ -60,6 +62,7 @@ function utils () {
 
 	function getOtherAppModuleData (moduleName, data, moduleData) {
 		moduleData.moduleName = moduleName;
+		moduleData.fileName = moduleName + '.js';
 
 		for (let i = 0; i < data.length; i++) {
 			const dt = data[i];
