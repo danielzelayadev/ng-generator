@@ -11,8 +11,6 @@
 	<body class="{{viewStyles}}">
 		 <ui-view></ui-view>
 	    <script>
-	    	const exec = require('child_process').exec;
-	    	global.exec = exec;
 	    	const { dialog } = require('electron').remote;
 	    	global.dialog = dialog;
 	    	global.fs = require('fs');
