@@ -18,7 +18,7 @@ function generator (utils) {
 		if (appData.createRun)
 			createRun(appData.destinyFolder, appData.runDependencies);
 		if (appData.createGlobalStylesheet)
-			createStylsheet(appData.destinyFolder, 'style.scss');
+			createStylsheet(appData.destinyFolder, 'style.scss', 'global');
 	}
 
 	function createAppBootstrapper (dir, requires) {
@@ -64,8 +64,8 @@ function generator (utils) {
 
 	}
 
-	function createStylsheet (dir, name) {
-		let template = name !== 'style.scss' ? `.${name} {\n\n}` : '';
+	function createStylsheet (dir, name, type, stateName) {
+		let template = type === 'global' ? '' : `.${stateName} {\n\n}`;
 
 		try {
 			fs.writeFile(`${dir}/${name}`, template);
