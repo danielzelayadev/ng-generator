@@ -9,10 +9,10 @@ function generator (utils) {
 
 	function createApp (appData) {
 		createAppBootstrapper(appData.destinyFolder, appData.requires);
-		createModule(appData.destinyFolder, utils.getAppModuleData(appData));
-		createModule(appData.destinyFolder, utils.getComponentsModuleData(appData.components));
-		createModule(appData.destinyFolder, utils.getServicesModuleData(appData.services));
-		createModule(appData.destinyFolder, utils.getSharedModuleData(appData.shared));
+		createModule(appData.destinyFolder, utils.getModuleData('app', appData));
+		createModule(appData.destinyFolder, utils.getModuleData('app.components', appData.components));
+		createModule(appData.destinyFolder, utils.getModuleData('app.services', appData.services));
+		createModule(appData.destinyFolder, utils.getModuleData('app.shared', appData.shared));
 		if (appData.createConfig)
 			createConfig(appData.destinyFolder, appData.configDependencies);
 		if (appData.createRun)
@@ -25,9 +25,9 @@ function generator (utils) {
 
 	}
 
-	function createModule (dir, moduleData) { 
-	//moduleName, dependencies, moduleVars, moduleRegistries
-
+	function createModule (dir, moduleData) {
+		if (moduleData.moduleVars.length > 0)
+			moduleData.moduleVars += '\n';
 	}
 
 	function createConfig (dir, dependencies, type) {
