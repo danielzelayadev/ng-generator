@@ -2,7 +2,8 @@ utils.$inject = [];
 
 function utils () {
 	const service = {
-		getModuleData: getModuleData
+		getModuleData: getModuleData,
+		toInjectionDependencies: toInjectionDependencies
 	};
 
 	return service;

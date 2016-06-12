@@ -14,11 +14,11 @@ function generator (utils) {
 		createModule(appData.destinyFolder, utils.getModuleData('app.services', appData.services));
 		createModule(appData.destinyFolder, utils.getModuleData('app.shared', appData.shared));
 		if (appData.createConfig)
-			createConfig(appData.destinyFolder, appData.configDependencies);
+			createConfig(appData.destinyFolder, appData.configDependencies, 'app', false);
 		if (appData.createRun)
-			createRun(appData.destinyFolder, appData.runDependencies);
+			createRun(appData.destinyFolder, appData.runDependencies, 'app');
 		if (appData.createGlobalStylesheet)
-			createStylsheet(appData.destinyFolder, 'style.scss', 'global');
+			createStylsheet(appData.destinyFolder, 'style.scss', true);
 	}
 
 	function createAppBootstrapper (dir, requires) {
@@ -52,20 +52,54 @@ function generator (utils) {
 		}
 	}
 
-	function createConfig (dir, dependencies, type) {
+	function createConfig (dir, dependencies, fileName, stateConfig, stateName) {
+		const configBody = `stateProvider
+		.state('${stateName}', {
+			url: '',
+			templateUrl: '',
+			controller: '',
+			onEnter: onStateEnter
+		});`;
+		const onEnterTemplate = `const onStateEnter = [ '$rootScope', 
+	function (rootScope) { 
+		rootScope.viewTitle  = "";
+    	rootScope.viewStyles = "";
+    }
+];`;
 
+		const template = `config.$inject = [${utils.toInjectionDependencies(dependencies)}];\n
+		function config (${dependencies}) {\n\n${stateConfig ? configBody : ''}}
+		${stateConfig ? onEnterTemplate : ''}
+		module.exports = config;`;
+
+		try {
+			fs.writeFileSync(`${dir}/${fileName}.config.js`, template);
+		}
+		catch (err) {
+			throw `Failed to create ${fileName}.config.js.`;
+		}
 	}
 
-	function createRun (dir, dependencies) {
+	function createRun (dir, dependencies, fileName) {
+		const template = `run.$inject = [${utils.toInjectionDependencies(dependencies)}];\n
+		function run (${dependencies}) {\n\n}
 
+		module.exports = run;`;
+
+		try {
+			fs.writeFileSync(`${dir}/${fileName}.run.js`, template);
+		}
+		catch (err) {
+			throw `Failed to create ${fileName}.run.js.`;
+		}
 	}
 
 	function createTemplate (dir, name) {
 
 	}
 
-	function createStylsheet (dir, name, type, stateName) {
-		let template = type === 'global' ? '' : `.${stateName} {\n\n}`;
+	function createStylsheet (dir, name, isGlobal, stateName) {
+		let template = isGlobal ? '' : `.${stateName} {\n\n}`;
 
 		try {
 			fs.writeFile(`${dir}/${name}`, template);
