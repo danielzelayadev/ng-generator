@@ -23,7 +23,7 @@ function utils () {
 			case 'app.components':
 			case 'app.services':
 			case 'app.shared':
-				getOtherAppModuleData(type, data, moduleData);
+				getOtherAppModuleData(type, data, moduleData, type.slice(type.indexOf('.')+1));
 				break;
 		}
 
@@ -33,6 +33,7 @@ function utils () {
 	function getAppModuleData (appData, moduleData) {
 		moduleData.moduleName = appData.moduleName;
 		moduleData.fileName = 'app.module.js';
+		moduleData.dependencies = toInjectionDependencies(appData.dependencies);
 
 		if (appData.createConfig) {
 			moduleData.moduleVars += "const config = require('./app.config');\n";
@@ -61,14 +62,15 @@ function utils () {
 
 	}
 
-	function getOtherAppModuleData (moduleName, data, moduleData) {
+	function getOtherAppModuleData (moduleName, data, moduleData, type) {
 		moduleData.moduleName = moduleName;
 		moduleData.fileName = moduleName + '.js';
 
 		for (let i = 0; i < data.length; i++) {
 			const dt = data[i];
-			const path = getRelativeRequirePath(dt.path);
-			moduleData.moduleVars += `const ${dt.name} = require('${path}');`;
+			const path = `./${type}/${dt.name}${getRelativeRequirePath(dt.path)}`;
+			moduleData.moduleVars += `const ${dt.name} = require('${path}');\n`;
+			moduleData.dependencies.push(dt.name);
 		}
 
 	}
@@ -92,7 +94,7 @@ function utils () {
 	}
 
 	function getRelativeRequirePath (path) {
-		return `.${path.slice(path.lastIndexOf('/'))}`;
+		return `${path.slice(path.lastIndexOf('/'))}`;
 	}
 
 }

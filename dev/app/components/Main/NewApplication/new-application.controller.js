@@ -16,7 +16,6 @@ function NewAppController (scope, genUtils, generator) {
 		try {
 			generator.createApp(vm.appData);
 			genUtils.toast('Success!', 3000);
-			genUtils.reload();
 		}
 		catch (err) {
 			genUtils.toast(err, 3000);

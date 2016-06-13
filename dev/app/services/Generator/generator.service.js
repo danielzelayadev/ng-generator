@@ -27,7 +27,9 @@ function generator (utils) {
 		for (let i = 0; i < requires.length; i++)
 			template += `require('${requires[i]}');\n`;
 
-		template += "\nconst app = require('./app.module');\n\nangular.bootstrap(document, [ app ]);";
+		if (template.length > 0) template += '\n';
+
+		template += "const app = require('./app.module');\n\nangular.bootstrap(document, [ app ]);";
 
 		try {
 			fs.writeFile(`${dir}/app.bootstrap.js`, template);
@@ -40,9 +42,11 @@ function generator (utils) {
 		if (moduleData.moduleVars.length > 0)
 			moduleData.moduleVars += '\n';
 
-		const template = `${moduleData.moduleVars}const moduleName   = '${mdouleData.moduleName}',` +
-		`\n\tdependencies = [${moduleData.dependencies}];` +
-		`\n\nangular.module(moduleName, dependencies)${moduleData.moduleRegistries};`;
+		const template = moduleData.moduleVars + 
+						`const moduleName   = '${moduleData.moduleName}',\n` +
+	    				`\t  dependencies = [${moduleData.dependencies}];\n\n` +
+	    				`angular.module(moduleName, dependencies)${moduleData.moduleRegistries};\n\n` +
+	    				`module.exports = moduleName;`;
 
 		try {
 			fs.writeFileSync(`${dir}/${moduleData.fileName}`, template);
@@ -65,12 +69,12 @@ function generator (utils) {
 		rootScope.viewTitle  = "";
     	rootScope.viewStyles = "";
     }
-];`;
+];\n\n`;
 
-		const template = `config.$inject = [${utils.toInjectionDependencies(dependencies)}];\n
-		function config (${dependencies}) {\n\n${stateConfig ? configBody : ''}}
-		${stateConfig ? onEnterTemplate : ''}
-		module.exports = config;`;
+		const template = `config.$inject = [${utils.toInjectionDependencies(dependencies)}];\n\n` +
+						 `function config (${dependencies}) {\n\n${stateConfig ? configBody : ''}}\n\n` +
+						 `${stateConfig ? onEnterTemplate : ''}` +
+						 `module.exports = config;`;
 
 		try {
 			fs.writeFileSync(`${dir}/${fileName}.config.js`, template);
@@ -81,10 +85,9 @@ function generator (utils) {
 	}
 
 	function createRun (dir, dependencies, fileName) {
-		const template = `run.$inject = [${utils.toInjectionDependencies(dependencies)}];\n
-		function run (${dependencies}) {\n\n}
-
-		module.exports = run;`;
+		const template = `run.$inject = [${utils.toInjectionDependencies(dependencies)}];\n\n` +
+						 `function run (${dependencies}) {\n\n}\n\n` +
+						 `module.exports = run;`;
 
 		try {
 			fs.writeFileSync(`${dir}/${fileName}.run.js`, template);
