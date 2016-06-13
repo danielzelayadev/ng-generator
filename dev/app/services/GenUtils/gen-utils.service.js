@@ -1,6 +1,6 @@
-genUtils.$injects = [ '$mdToast', '$state' ];
+genUtils.$injects = [ '$mdToast', '$state', '$rootScope' ];
 
-function genUtils ($mdToast, $state) {
+function genUtils ($mdToast, $state, $rootScope) {
 	const service = {
 		addInputTextToList: addInputTextToList,
 		removeListItem: removeListItem,
@@ -9,7 +9,10 @@ function genUtils ($mdToast, $state) {
 		toStandardFileName: toStandardFileName,
 		toStandardObjectName: toStandardObjectName,
 		toast: toast,
-		reload: reload
+		reload: reload,
+		goTo: goTo,
+		currentState: currentState,
+		openApp: openApp
 	};
 
 	return service;
@@ -93,6 +96,20 @@ function genUtils ($mdToast, $state) {
 
 	function reload () {
 		$state.go($state.current, {}, {reload: true});
+	}
+
+	function goTo (state) {
+		$state.go(state);
+	}
+
+	function currentState () {
+		return $state.current.name;
+	}
+
+	function openApp () {
+		try {
+			const dir = selectFolder();
+		} catch (err) {}
 	}
 
 }
