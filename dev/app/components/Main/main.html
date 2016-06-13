@@ -13,10 +13,14 @@
           <md-icon md-svg-icon="dist/img/more_vert.svg"></md-icon>
         </md-button>
         <md-menu-content width="4">
-          <md-menu-item ng-repeat="option in mvm.navOptions">
-            <md-button ui-sref="{{option.sref}}" ng-disabled="option.disabled">
-              {{option.name}}
-            </md-button>
+          <md-menu-item>
+            <md-button ui-sref="main.new-app">New Application</md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-click="mvm.openApp()">Open Application</md-button>
+          </md-menu-item>
+          <md-menu-item ng-show="mvm.showClose">
+            <md-button ui-sref="main.welcome">Close</md-button>
           </md-menu-item>
         </md-menu-content>
       </md-menu>
