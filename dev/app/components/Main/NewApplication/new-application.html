@@ -1,0 +1,30 @@
+<form name="newApp" ng-submit="newApp.$valid && vm.submit()">
+	<md-input-container class="md-block">
+	    <label>Module Name</label>
+	    <input name="moduleName" ng-model="vm.appData.moduleName" required>
+	    <div ng-messages="newApp.moduleName.$error">
+	      <div ng-message="required">This is required!</div>
+	    </div>
+    </md-input-container>
+    <text-to-list title="Add Dependency" list-title="App Dependencies" list="vm.appData.dependencies"></text-to-list>
+    <div>
+        <md-subheader>App Destination *</md-subheader>
+        <md-button class="md-mini" style="font-size: 1.4em;" ng-click="vm.openFileBrowser(vm.appData.destinyFolder)">Choose Folder...</md-button>
+    </div>
+    <module-to-list module-type="Component" modules="vm.appData.components"></module-to-list>
+    <module-to-list module-type="Service" modules="vm.appData.services"></module-to-list>
+    <module-to-list module-type="Shared Module" modules="vm.appData.shared"></module-to-list>
+    <div class="md-checkbox-container">
+        <md-checkbox ng-model="vm.appData.createConfig">Create Config</md-checkbox>
+    </div>
+    <text-to-list ng-show="vm.appData.createConfig" title="Add Config Dependency" list-title="Config Dependencies" list="vm.appData.configDependencies"></text-to-list>
+    <div class="md-checkbox-container"">
+        <md-checkbox ng-model="vm.appData.createRun">Create Run</md-checkbox>
+    </div>
+    <text-to-list ng-show="vm.appData.createRun" title="Add Run Dependency" list-title="Run Dependencies" list="vm.appData.runDependencies"></text-to-list>
+    <div class="md-checkbox-container">
+        <md-checkbox ng-model="vm.appData.createGlobalStylesheet">Create Global Stylesheet</md-checkbox>
+    </div>
+    <md-button class="md-raised md-primary" aria-label="Submit" type="submit">Create</md-button>
+    <md-button class="md-raised md-warn" aria-label="Submit" type="reset" ng-click="vm.reset()">Reset</md-button>
+</form>

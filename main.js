@@ -6,7 +6,7 @@ const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
 
-require('electron-reload')(__dirname, {
+require('electron-reload')([ 'index.html', 'dist/**/*.*' ], {
   electron: require('electron-prebuilt')
 });
 

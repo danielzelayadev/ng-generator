@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html ng-app="ngGenerator">
+<html>
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,8 +11,9 @@
 	<body class="{{viewStyles}}">
 		 <ui-view></ui-view>
 	    <script>
-	    	const exec = require('child_process').exec;
-	    	global.exec = exec;
+	    	const { dialog } = require('electron').remote;
+	    	global.dialog = dialog;
+	    	global.fs = require('fs');
 	    </script>
 		<script src="dist/js/bundle.js"></script>
 	</body>
