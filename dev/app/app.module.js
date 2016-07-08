@@ -4,7 +4,9 @@ const components = require("./app.components"),
       shared     = require("./app.shared");
 
 const moduleName   = 'ngGenerator',
-      dependencies = [ 'ui.router', 'ngMessages', 'ngMaterial', components, services, shared ];
+      dependencies = [ 'ui.router', 'ngMessages', 'ngMaterial', 
+                       'directives.customvalidation.customValidationTypes',
+                        components, services, shared ];
 
 angular.module(moduleName, dependencies)
 	.config(config);
